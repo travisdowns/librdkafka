@@ -4,6 +4,7 @@ EXAMPLES ?= rdkafka_example rdkafka_performance rdkafka_example_cpp \
 	producer consumer idempotent_producer transactions \
 	delete_records \
 	openssl_engine_example_cpp \
+        many_consumers \
 	list_consumer_groups \
 	describe_consumer_groups \
 	describe_topics \
@@ -122,6 +123,10 @@ rdkafka_performance: ../src/librdkafka.a rdkafka_performance.c
 	@echo "#"
 	@echo "# More usage options:"
 	@echo "./$@ -h"
+
+many_consumers: ../src/librdkafka.a many_consumers.cpp
+	$(CXX) -I../src $(CPPFLAGS) $(CXXFLAGS) many_consumers.cpp -o $@ $(LDFLAGS) \
+		../src/librdkafka.a $(LIBS)
 
 
 rdkafka_example_cpp: ../src-cpp/librdkafka++.a ../src/librdkafka.a rdkafka_example.cpp
